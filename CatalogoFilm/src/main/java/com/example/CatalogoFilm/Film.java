@@ -27,7 +27,7 @@ public Film(String titolo, String regista, int anno, String genere){
     public String getGenere() { return genere; }
 
     public void setId(Long id) { this.id = id; }
-    public void setTtitolo(String titolo) { this.titolo= titolo;; }
+    public void setTitolo(String titolo) { this.titolo= titolo;; }
     public void setRegista(String regista) { this.regista= regista; }
     public void setAnno(int anno) { this.anno= anno; }
     public void setGenere(String genere) {this.genere=genere;}
