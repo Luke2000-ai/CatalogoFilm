@@ -7,6 +7,8 @@ public class Film{
     private int anno;
     private String genere;
 
+    
+
 
 public Film(){}
 
@@ -30,5 +32,6 @@ public Film(String titolo, String regista, int anno, String genere){
     public void setAnno(int anno) { this.anno= anno; }
     public void setGenere(String genere) {this.genere=genere;}
     
-
+  
 }
+
