@@ -2,57 +2,58 @@ package com.example.CatalogoFilm.service;
 
 import com.example.CatalogoFilm.Film;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
+
 
 @Service
 public class FilmService {
 
-    private List<Film> catalogo = new ArrayList<>();
-    private int nextId = 1;
+    private final List<Film> catalogo = new ArrayList<>();
+    private final AtomicLong sequenza = new AtomicLong(0);
 
-    public Film aggiungiFilm(Film film) {
-        film.setId(nextId++);
-        catalogo.add(film);
-        return film;
+   public Film create(Film nuovoFilm) {
+        Long id = sequenza.incrementAndGet(); 
+        nuovoFilm.setId(id);
+        catalogo.add(nuovoFilm);
+        return nuovoFilm;
+    }
+       public List<Film> getTuttiIFilm() {
+        return new ArrayList<>(catalogo);
     }
 
-    public List<Film> getTutti() {
-        return catalogo;
-    }
-
-    public Film getById(int id) {
-        Optional<Film> film = catalogo.stream()
-                .filter(f -> f.getId() == id)
-                .findFirst();
-        return film.orElse(null);
-    }
-
-    public Film aggiornaFilm(int id, Film filmAggiornato) {
-        for (Film film : catalogo) {
-            if (film.getId() == id) {
-                film.setTitolo(filmAggiornato.getTitolo());
-                film.setRegista(filmAggiornato.getRegista());
-                film.setAnno(filmAggiornato.getAnno());
-                return film;
-            }
-        }
-        return null;
-    }
-
-       public String eliminaFilm(int id) {
-        boolean rimosso = catalogo.removeIf(f -> f.getId() == id);
-        return rimosso ? "Film eliminato" : "Film non trovato";
-    }
-
-    public List<Film> cercaPerTitolo(String titolo) {
+    public List<Film> cercaFilm(String titolo, String genere) {
         return catalogo.stream()
-                .filter(f -> f.getTitolo().toLowerCase().contains(titolo.toLowerCase()))
-                .collect(Collectors.toList());
+                .filter(f -> (titolo == null || f.getTitolo().equalsIgnoreCase(titolo)) &&
+                             (genere == null || f.getGenere().equalsIgnoreCase(genere)))
+                .toList();
+  }
+
+   public Film update(Long id, Film filmAggiornato) {
+        return findById(id).map(filmDaAggiornare -> {
+            filmDaAggiornare.setTitolo(filmAggiornato.getTitolo());
+            filmDaAggiornare.setRegista(filmAggiornato.getRegista());
+            filmDaAggiornare.setAnno(filmAggiornato.getAnno());
+            filmDaAggiornare.setGenere(filmAggiornato.getGenere());
+            return filmDaAggiornare; 
+         }).orElseThrow(() -> new NoSuchElementException("Film con ID " + id + " non trovato per la modifica."));
     }
 
- 
+    public Optional<Film> findById(Long id) {
+        return catalogo.stream()
+                         .filter(film -> Objects.equals(film.getId(),id))
+                         .findFirst(); 
+    }
+
+    public void deleteById(Long idDaEliminare) {
+        boolean rimozioneFilmEffettuata = catalogo.removeIf(filmRimosso -> filmRimosso.getId().equals(idDaEliminare));
+
+        if(!rimozioneFilmEffettuata) {
+            throw new NoSuchElementException("Film con ID " + idDaEliminare + " non trovato per l'eliminazione.");
+        }
+    }
+
+
+
 }
