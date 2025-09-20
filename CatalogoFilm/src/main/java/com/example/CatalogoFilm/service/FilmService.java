@@ -43,5 +43,16 @@ public class FilmService {
         return null;
     }
 
+       public String eliminaFilm(int id) {
+        boolean rimosso = catalogo.removeIf(f -> f.getId() == id);
+        return rimosso ? "Film eliminato" : "Film non trovato";
+    }
+
+    public List<Film> cercaPerTitolo(String titolo) {
+        return catalogo.stream()
+                .filter(f -> f.getTitolo().toLowerCase().contains(titolo.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
  
 }
