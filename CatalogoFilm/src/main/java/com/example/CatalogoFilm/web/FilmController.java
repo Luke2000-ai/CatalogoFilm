@@ -29,6 +29,10 @@ public class FilmController {
                       .orElse(ResponseEntity.notFound().build()); 
     }   
 
+
+
+
+
     @PostMapping
         public ResponseEntity<Film> create(@RequestBody Film body) {
             Film filmCreato = service.create(body); 
@@ -37,11 +41,17 @@ public class FilmController {
                                  .body(filmCreato);
     } 
 
+
+
+
     @PutMapping("/{id}")
     public ResponseEntity<Film> update(@PathVariable Long id, @RequestBody Film body) {
         Film filmAggiornato = service.update(id, body);
         return ResponseEntity.ok().body(filmAggiornato); 
     }
+
+
+
 
     @GetMapping("/cerca")
 public List<Film> cercaFilm(@RequestParam(required = false) String titolo,
@@ -49,6 +59,9 @@ public List<Film> cercaFilm(@RequestParam(required = false) String titolo,
     return service.cercaFilm(titolo, genere);
      }
 
+
+
+     
   
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
