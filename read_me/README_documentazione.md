@@ -37,7 +37,8 @@
 - Permette la modifica dei dati di un film già presente, tramite id.
 - Permette l' eliminazione di un film dal catalogo, tramite `id.
 
-## La classe FilmController gestisce le richieste HTTP relative ai film, fungendo da punto di accesso per le operazioni esposte al client. Ecco come:
+## La classe FilmController gestisce le richieste HTTP relative ai film, fungendo da punto di accesso per le operazioni esposte al client. 
+## Funzionalità implementate
 - Visualizzazione dell’elenco completo dei film tramite @GetMapping("/films")
 - Inserimento di un nuovo film tramite @PostMapping("/films")
 - Modifica dei dati di un film esistente tramite @PutMapping("/{id}")
