@@ -8,12 +8,8 @@
 2. Aprire il progetto con un IDE come IntelliJ o VS Code
 3. Assicurarsi di avere Java 17+ e Maven installati
 4. Eseguire il progetto con:
-5. Testare gli endpoint con Postman o browser:
-- GET /films
-- POST /films
-- PUT /films/{id}
-- DELETE /films/{id}
-- GET /films/search?titolo=&genere=
+5. Testare gli endpoint con Postman o browser
+
 
 ## CatalogoFilm – Descrizione del progetto
 - Questo progetto è un'applicazione Java fatta con Spring Boot che serve per gestire un catalogo di film. L'obiettivo è permettere all'utente di fare tutte le operazioni base: aggiungere, vedere, modificare, cercare ed eliminare dei film. Tutto funziona tramite chiamate REST (quindi si può usare Postman o anche il browser per testare).
